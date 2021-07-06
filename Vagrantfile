@@ -8,7 +8,6 @@ Vagrant.configure("2") do |config|
     end
     node1.vm.hostname = "node1VMname"
     node1.vm.network "private_network", ip: "192.168.10.5"
-    node1.vm.network "public_network"
     node1.vm.provision "shell", inline: "
         yum install git -y
         cd /home/vagrant
@@ -25,7 +24,6 @@ Vagrant.configure("2") do |config|
     end
     node2.vm.hostname = "node2VMname"
     node2.vm.network "private_network", ip: "192.168.10.6"
-    node2.vm.network "public_network"
     node2.trigger.after :up do |trigger1|
       trigger1.run = {inline: "bash -c 'vagrant scp ./.vagrant/machines/node2/virtualbox/private_key node1:/home/vagrant/.ssh/id_rsa'"}
     end
